@@ -1,13 +1,3 @@
-# Effective Python
-
-Hello! This is a direct fork of the _Effective Python: Second Edition_ repository repository which you can find here:
-
-[Effective Python](https://github.com/bslatkin/effectivepython)
-
-You can find some great examples from the book in the example_code folder. 
-
-Here, I mostly outline some of my favourite parts of the book, as well as some coding principles that I like to stick to when writing Python.
-
 ## General Coding Standards
 
 ### Code Readability
@@ -490,12 +480,48 @@ for i in range(100000):
 - Know how to use heapq for priority queues.
 - Consider memoryview and bytearray for zero-copy interactions with bytes.
 
+## Code Smells
+
+- Try to make the code human readable as much as possible! If you are having trouble reading it and understand it,
+create helper functions to make the code more readable. As an example, the below code could be refactored to:
+
+```python3
+file_path = 'delete_label'
+if (file_path != 'delete_label' or file_path is not None):
+    # Do some file manipulation
+    pass
+
+# Instead of using the above, we can introduce a helper function called exists which makes the code clearer:
+def exists(file_path):
+    return file_path != 'delete_label' or file_path is not None
+
+# Then, we refactor the above to:
+if exists(file_path):
+    # Do some file manipulation
+    pass
+```
+
+- Always catch, log, or report exceptions!! Don't ignore them!
+
+```python3
+def do_something_func():
+    pass
+
+try:
+    do_something_func()
+except Exception:
+    # Never ignore an exceptionn!! Exceptions always have something to tell us: a component of the code which was 
+    # supposed to execute didn't, and the least we can do is log it!! 
+    pass
+```
+
 - For better guidelines and info, make sure to read the book full book [Effective Python](https://effectivepython.com/) as well as go through the examples shown in the example_code folder.
 - [Fluent Python](https://www.oreilly.com/library/view/fluent-python/9781491946237/) is also fantastic!
 
-# Effective Python Book Info
+## Effective Python
 
-To learn more about the book or contact the author, please [visit the official website](https://effectivepython.com).
+This repo is a direct fork of the _Effective Python: Second Edition_ repository which you can find here:
 
-[![Cover](./cover.jpg)](https://effectivepython.com)
+[Effective Python](https://github.com/bslatkin/effectivepython)
 
+You can find some great examples from the book in the example_code folder.
